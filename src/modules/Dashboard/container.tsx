@@ -38,21 +38,25 @@ const links = [
   },
 ];
 
-const Dashboard = () => (
-  <React.Fragment>
+const Dashboard: React.FunctionComponent = () => (
+  <>
     <Grid container spacing={16}>
-      {links.map(link => (
+      {links.map((link) => (
         <Grid item lg={2} md={3} sm={4} xs={6}>
           <ButtonBase
             focusRipple
             key={link.url}
-            component={props => <Link to={link.url} {...props} />}
+            component={() => <Link to={link.url} />}
             style={{
               display: 'block',
             }}
           >
             <Paper style={{ padding: 20 }}>
-              <Typography align="center" variant="display1" style={{ fontSize: 96, lineHeight: 0.8 }}>
+              <Typography
+                align="center"
+                variant="display1"
+                style={{ fontSize: 96, lineHeight: 0.8 }}
+              >
                 {link.icon}
               </Typography>
               <Typography align="center" variant="display1">
@@ -63,11 +67,7 @@ const Dashboard = () => (
         </Grid>
       ))}
     </Grid>
-  </React.Fragment>
+  </>
 );
-
-// Dashboard.propTypes = {
-//   classes: PropTypes.shape(PropTypes.object).isRequired,
-// };
 
 export default Dashboard;

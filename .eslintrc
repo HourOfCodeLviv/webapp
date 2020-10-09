@@ -21,6 +21,9 @@
   // "rules": {
   //   "react/destructuring-assignment": 0
   // },
+  "rules": {
+    "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".ts"] }]
+  },
   "globals": {
     "window": true
   },
@@ -35,5 +38,13 @@
     "browser": true,
     "mocha": true,
     "jest/globals": true
-  }
+  },
+  "overrides": [
+    {
+      "files": ["**/*.tsx"],
+      "rules": {
+        "react/prop-types": "off"
+      }
+    }
+  ]
 }

@@ -1,6 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui-v3/core/styles';
+import { withStyles, createStyles } from '@material-ui-v3/core/styles';
 import Table from '@material-ui-v3/core/Table';
 import TableBody from '@material-ui-v3/core/TableBody';
 import TableCell from '@material-ui-v3/core/TableCell';
@@ -8,22 +7,37 @@ import TableHead from '@material-ui-v3/core/TableHead';
 import TableRow from '@material-ui-v3/core/TableRow';
 import Paper from '@material-ui-v3/core/Paper';
 
-const styles = {
-  root: {
-    width: '100%',
-    overflowX: 'auto',
-  },
-  table: {
-    minWidth: 700,
-  },
+const styles = () => {
+  return createStyles({
+    root: {
+      width: '100%',
+      overflowX: 'auto',
+    },
+    table: {
+      minWidth: 700,
+    },
+  });
+};
+
+type SimpleTableData = {
+  id: number;
+  name: string;
+  calories: number;
+  fat: number;
+  carbs: number;
+  protein: number;
 };
 
 let id = 0;
-function createData(name, calories, fat, carbs, protein) {
+function createData(
+  name: string,
+  calories: number,
+  fat: number,
+  carbs: number,
+  protein: number,
+): SimpleTableData {
   id += 1;
-  return {
-    id, name, calories, fat, carbs, protein,
-  };
+  return { id, name, calories, fat, carbs, protein };
 }
 
 const data = [
@@ -34,9 +48,14 @@ const data = [
   createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
 
-function SimpleTable(props) {
-  const { classes } = props;
+type SimpleTableClasses = {
+  root: string;
+  table: string;
+};
 
+const SimpleTable: React.FunctionComponent<{ classes: SimpleTableClasses }> = ({
+  classes,
+}) => {
   return (
     <Paper className={classes.root}>
       <Table className={classes.table}>
@@ -50,7 +69,7 @@ function SimpleTable(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map(n => (
+          {data.map((n: SimpleTableData) => (
             <TableRow key={n.id}>
               <TableCell component="th" scope="row">
                 {n.name}
@@ -65,10 +84,6 @@ function SimpleTable(props) {
       </Table>
     </Paper>
   );
-}
-
-SimpleTable.propTypes = {
-  classes: PropTypes.shape(PropTypes.object).isRequired,
 };
 
 export default withStyles(styles)(SimpleTable);
